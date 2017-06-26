@@ -1,0 +1,275 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<title>Resource Manager</title>
+<meta charset="windows-1252">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="mainstyle.css">
+
+
+<script>
+	function validatename() {
+                if(document.getElementById("employee").value != "") {
+                    return true;
+                }
+                else {
+                    alert("Employee Name must not be blank");
+                    document.getElementById("employee").focus();
+                    return false;
+                }
+	}
+
+	function populateCategory(catArray) {
+               
+		var element = document.getElementById("category");
+
+		for(i=0; i < catArray.length; i++) {
+		   var option = document.createElement("option");
+		   option.text = catArray[i].lcat;
+		   element.add(option);
+		}
+
+	}
+
+
+	function fetchCategory() {
+		xmlhttp = new XMLHttpRequest();
+		//This section below is the actual callback function for the asynch request and runs as soon
+		//as the server finishes the response. What this does is get the response, parse the JSON,
+		//and changes the innerHTML of our output DIV to the new information sent from the server in
+		//realtime.   
+		//Callback starts
+		xmlhttp.onreadystatechange=function() {
+                        //alert(xmlhttp.status + " " + xmlhttp.readyState);
+			if (xmlhttp.readyState===4 && xmlhttp.status===200) {
+                               var myStruct = JSON.parse(xmlhttp.responseText);
+			       populateCategory(myStruct);
+                               //alert(xmlhttp.responseText);
+			}
+		};
+		//Callback ends
+		//open the connection for a Post. Then set the headers, and the send will actually send the
+		//AJAX request to the server.
+		xmlhttp.open("POST","http://localhost:3002/read_category", true);
+	        xmlhttp.setRequestHeader("cache-control", "no-cache");
+        	xmlhttp.setRequestHeader("content-type", "application/json;charset=UTF-8");
+                //xmlhttp.send(JSON.stringify(myData));
+		xmlhttp.send();
+
+	}
+
+
+	function fetchSkill() {
+		xmlhttpb = new XMLHttpRequest();
+		//This section below is the actual callback function for the asynch request and runs as soon
+		//as the server finishes the response. What this does is get the response, parse the JSON,
+		//and changes the innerHTML of our output DIV to the new information sent from the server in
+		//realtime.   
+		//Callback starts
+		xmlhttpb.onreadystatechange=function() {
+                        //alert(xmlhttp.status + " " + xmlhttp.readyState);
+			if (xmlhttpb.readyState===4 && xmlhttpb.status===200) {
+                               var myStructA = JSON.parse(xmlhttpb.responseText);
+			       populateSkill(myStructA);
+                               //alert(xmlhttpb.responseText);
+			}
+		};
+		//Callback ends
+		//open the connection for a Post. Then set the headers, and the send will actually send the
+		//AJAX request to the server.
+		xmlhttpb.open("POST","http://localhost:3002/read_skill", true);
+	        xmlhttpb.setRequestHeader("cache-control", "no-cache");
+        	xmlhttpb.setRequestHeader("content-type", "application/json;charset=UTF-8");
+                //xmlhttp.send(JSON.stringify(myData));
+		xmlhttpb.send();
+
+	}
+
+
+	function fetchTable() {
+		xmlhttpc = new XMLHttpRequest();
+		//This section below is the actual callback function for the asynch request and runs as soon
+		//as the server finishes the response. What this does is get the response, parse the JSON,
+		//and changes the innerHTML of our output DIV to the new information sent from the server in
+		//realtime.   
+		//Callback starts
+		xmlhttpc.onreadystatechange=function() {
+                        //alert(xmlhttp.status + " " + xmlhttp.readyState);
+			if (xmlhttpc.readyState===4 && xmlhttpc.status===200) {
+                               var myStruct = JSON.parse(xmlhttpc.responseText);
+			       populateDatatable(myStruct);
+			}
+		};
+		//Callback ends
+		//open the connection for a Post. Then set the headers, and the send will actually send the
+		//AJAX request to the server.
+		xmlhttpc.open("POST","http://localhost:3002/read_datatable", true);
+	        xmlhttpc.setRequestHeader("cache-control", "no-cache");
+        	xmlhttpc.setRequestHeader("content-type", "application/json;charset=UTF-8");
+                //xmlhttp.send(JSON.stringify(myData));
+		xmlhttpc.send();
+	}
+
+	function populateSkill(skillArray) {
+
+		var element = document.getElementById("skill");
+
+		for(i=0; i < skillArray.length; i++) {
+		   var option = document.createElement("option");
+		   option.text = skillArray[i].skill;
+		   element.add(option);
+		}
+
+	}
+
+        function deleteResource(myobject, empname) {
+            var questiontext = "Do you really want to delete the resource entry for " + String(empname).substring(1, String(empname).length-1) + "?";
+            //Ask the user if they are sure they want to Delete.
+            if (confirm(questiontext)) {
+                //Do nothing here, but process the rest of this function.
+            } else {
+                return; //Do nothing and escape immediately not deleting
+            }
+            
+            var maxlen = String(myobject).length-1;
+            var myconvertobject = String(myobject).substring( 1, maxlen);
+            var myData = {}; 
+            myData['myid'] = myconvertobject;
+ 		xmlhttpd = new XMLHttpRequest();
+		//This section below is the actual callback function for the asynch request and runs as soon
+		//as the server finishes the response. What this does is get the response, parse the JSON,
+		//and changes the innerHTML of our output DIV to the new information sent from the server in
+		//realtime.   
+		//Callback starts
+		xmlhttpd.onreadystatechange=function() {
+                        //alert(xmlhttp.status + " " + xmlhttp.readyState);
+			if (xmlhttpd.readyState===4 && xmlhttpd.status===200) {
+			       fetchTable();
+			}
+		};
+		//Callback ends
+		//open the connection for a Post. Then set the headers, and the send will actually send the
+		//AJAX request to the server.
+		xmlhttpd.open("POST","http://localhost:3002/delete_resource", true);
+	        xmlhttpd.setRequestHeader("cache-control", "no-cache");
+        	xmlhttpd.setRequestHeader("content-type", "application/json;charset=UTF-8");
+                //xmlhttp.send(JSON.stringify(myData));
+		xmlhttpd.send(JSON.stringify(myData));
+        }
+
+        function addEmpResource() {
+
+            var myData = {}; 
+
+            var oForm = document.getElementById("resourceform");
+                //This for loop grabs all elements in the html form "nameform" and creates a Structure
+                //of all the form elements and their values.
+                for(var i=0; i < oForm.elements.length; i++) {
+                    myData[oForm.elements[i].name] = oForm.elements[i].value;
+                }
+                oForm.reset();
+                xmlhttpe = new XMLHttpRequest();
+		//This section below is the actual callback function for the asynch request and runs as soon
+		//as the server finishes the response. What this does is get the response, parse the JSON,
+		//and changes the innerHTML of our output DIV to the new information sent from the server in
+		//realtime.   
+		//Callback starts
+		xmlhttpe.onreadystatechange=function() {
+                        //alert(xmlhttp.status + " " + xmlhttp.readyState);
+			if (xmlhttpe.readyState===4 && xmlhttpe.status===200) {
+			       fetchTable();
+			}
+		};
+		//Callback ends
+		//open the connection for a Post. Then set the headers, and the send will actually send the
+		//AJAX request to the server.
+		xmlhttpe.open("POST","http://localhost:3002/add_resource", true);
+	        xmlhttpe.setRequestHeader("cache-control", "no-cache");
+        	xmlhttpe.setRequestHeader("content-type", "application/json;charset=UTF-8");
+                //xmlhttp.send(JSON.stringify(myData));
+		xmlhttpe.send(JSON.stringify(myData));
+            
+        }
+
+	function populateDatatable(recordStruct) {
+        	if (recordStruct == null) {
+			var recordStruct = "";
+		}
+                var myidval;
+                
+		var myTableHTML = '<table class="datatable">' 
+			myTableHTML = myTableHTML + '<tr class="datarowhead">';
+			myTableHTML = myTableHTML + '<th class="datahead">Category</th>';
+			myTableHTML = myTableHTML + '<th class="datahead">Skill</th>';
+			myTableHTML = myTableHTML + '<th class="datahead">Employee Name</th>';
+			myTableHTML = myTableHTML + '<th class="datahead">Availability</th>';
+			myTableHTML = myTableHTML + '<th class="datahead">Delete?</th>';
+			myTableHTML = myTableHTML + '</tr>';
+
+		for(var i=0; i < recordStruct.length; i++) {
+			myTableHTML = myTableHTML + '<tr class="datarow">';
+			myTableHTML = myTableHTML + '<td class="databod">' + recordStruct[i].lcat + '</td>';
+			myTableHTML = myTableHTML + '<td class="databod">' + recordStruct[i].skill + '</td>';
+			myTableHTML = myTableHTML + '<td class="databod">' + recordStruct[i].employeeName + '</td>';
+			myTableHTML = myTableHTML + '<td class="databod">' + recordStruct[i].avail + '</td>';
+                        myidval = recordStruct[i]._id;
+			myTableHTML = myTableHTML + '<td class="databod"><button value="Delete" onclick="javascript:deleteResource(/' 
+                                + myidval + '/,/' + recordStruct[i].employeeName + '/);">Delete</button></td>';
+			myTableHTML = myTableHTML + '</tr>';
+
+		}
+		var myTableHTML = myTableHTML + '</table>';
+		document.getElementById("dataview").innerHTML = myTableHTML;
+
+	}
+
+	function populateAll() {
+		fetchCategory();
+		fetchSkill();
+                //populateSkill();
+		fetchTable();
+		//populateDatatable();
+
+		return;
+	}
+
+
+</script>
+
+</head>
+<body onLoad="javascript:populateAll();">
+<h1>Resource Manager</h1>
+<br /><br />
+<form id="resourceform" action="javascript:addEmpResource();" onsubmit="javascript:return validatename();" method="get">
+   <table>
+	<tr>
+		<th><label for="category">Category</label></th>
+		<th><label for="skill">Skill</label></th>
+		<th><label for="employee">Employee Name</label></th>
+		<th><label for="availability">Availability</label></th>
+		<th></th>
+	</tr>
+	<tr>
+		<td><select name="category" id="category"></select></td>
+		<td><select name="skill" id="skill"></select></td>
+		<td><input type="text" name="employee" id="employee" maxlength="30"></input></td>
+		<td>
+			<select name="availability" id="availability">
+				<option value="Yes">Yes</option>
+				<option value="No">No</option>
+			</select>
+		</td>
+		<td><button type="submit" id="addbutton" value = "Add">Add</button></td>
+	</tr>
+   </table>
+</form>
+<br />
+<div class="divider"></div>
+<br />
+	<span id = "dataview">
+	</span>
+</body>
+</html>

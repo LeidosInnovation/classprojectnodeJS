@@ -1,0 +1,36 @@
+body {
+	background-color: #FFFFEE;
+}
+
+h1 {
+	text-align: center;
+	color: blue;
+}
+
+#employee {
+	width: 250px;
+}
+
+table {
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+table.datatable {
+	border: 1px solid black;
+	
+}
+
+tr.datarow, th.datahead {
+	border-bottom: 1px solid black;
+}
+
+tr.datarow:nth-child(even){background-color: #f2f2f2}
+tr.datarow:nth-child(odd){background-color: #ffffff}
+th.datahead {background-color: #cccccc}
+div.divider {
+	width: 100%;
+	background-color: Green;
+	height: 5px;
+}
