@@ -1,0 +1,26 @@
+{
+  "name": "classprojectnodejs",
+  "version": "1.0.0",
+  "description": "Resource Manager Class Project",
+  "main": "resmanage.js",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mongojs": "^2.4.0",
+    "mongodb": "^2.2.29"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akaimizu1/classprojectnodeJS.git"
+  },
+  "author": "Team C (Michael Bromery)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akaimizu1/classprojectnodeJS/issues"
+  },
+  "homepage": "https://github.com/akaimizu1/classprojectnodeJS#readme"
+}
