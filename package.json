@@ -2,7 +2,6 @@
   "name": "classprojectnodejs",
   "version": "1.0.0",
   "description": "Resource Manager Class Project",
-  "main": "resmanage.js",
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
@@ -11,7 +10,11 @@
   },
   "devDependencies": {},
   "scripts": {
-    “start”: “node resmanage.js”
+    "start": "node resmanage.js",
+    "create": "node createMongoDatabase.js",
+    "createtab": "node createTables.js",
+    "insert": "node insertDataInToTables.js",
+    "drop tab": "node dropTable.js"
   },
   "repository": {
     "type": "git",
