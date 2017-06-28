@@ -3,9 +3,13 @@ var fs = require('fs');
 var myParser = require("body-parser");
 var mongojs = require('mongojs');
 
-var dbcat = mongojs('mongodb://localhost:27017/mydb',['lcat']);
-var dbskill = mongojs('mongodb://localhost:27017/mydb',['skills']);
-var dbdatatable = mongojs('mongodb://localhost:27017/mydb',['employees']);
+//comment out old connections for the mongo cloud database.
+//var dbcat = mongojs('mongodb://localhost:27017/mydb',['lcat']);
+//var dbskill = mongojs('mongodb://localhost:27017/mydb',['skills']);
+//var dbdatatable = mongojs('mongodb://localhost:27017/mydb',['employees’]);
+var dbcat = mongojs('mongodb://teamcuser:classproj17@ds139262.mlab.com:39262/heroku_cp87cq4q',['lcat']);
+var dbskill = mongojs('mongodb://teamcuser:classproj17@ds139262.mlab.com:39262/heroku_cp87cq4q',['skills']);
+var dbdatatable = mongojs('mongodb://teamcuser:classproj17@ds139262.mlab.com:39262/heroku_cp87cq4q',['employees']);
 
 var app = express();
 app.use(express.static(__dirname)); 
